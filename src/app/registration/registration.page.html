@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Name</ion-label>
+      <ion-input
+        type="text"
+        formControlName="fullname"
+        class="form-control"
+        #name
+        [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="submitted && f['fullname'].errors" class="invalid-feedback">
+      <span
+      class="error ion-padding"
+      *ngIf="f['fullname'].errors['required']"
+    >
+      Name is required.
+    </span>
+    <span
+      class="error ion-padding"
+      *ngIf="f['fullname'].errors['minlength']"
+    >
+      Name should be min 2 chars long.
+    </span>
+  </div>
+   <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input
+    type="text"
+    formControlName="email"
+    class="form-control"
+    #email
+    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+    ></ion-input>
+    </ion-item>
+  <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+    <span
+    class="error ion-padding"
+    *ngIf="f['email'].errors['required']"
+  >
+    Email is required.
+  </span>
+  <span
+    class="error ion-padding"
+    *ngIf="f['email'].errors['pattern']"
+  >
+    Please provide valid email id.
+  </span>
+
+</div>
+    <ion-item lines="full">
+      <ion-label position="floating">DOB</ion-label>
+      <ion-datetime
+        (ionChange)="getDate($event)"
+        formControlName="dob"
+        [value]="defaultDate"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Mobile</ion-label>
+      <ion-input
+        maxlength="10"
+        formControlName="mobile"
+        type="text"
+        required
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="submitted && f['mobile'].errors">
+      <span
+      class="error ion-padding"
+      *ngIf="f['mobile'].errors['required']"
+    >
+      Mobile number is required.
+    </span>
+    <span
+      class="error ion-padding"
+      *ngIf="f['mobile'].errors['pattern']"
+    >
+      Only numerical values allowed.
+    </span>
+  </div>
+    
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

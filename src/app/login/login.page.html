@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit(email.value, password.value)"
+    novalidate
+  >
+    <ion-item class="inputLabel" lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+      type="text"
+      formControlName="email"
+      class="form-control"
+      #email
+      [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+      <span
+      class="error ion-padding"
+      *ngIf="f['email'].errors['required']"
+    >
+      Email is required.
+    </span>
+    <span
+      class="error ion-padding"
+      *ngIf="f['email'].errors['email']"
+    >
+      Please provide valid email id.
+    </span>
+
+  </div>
+    
+    <ion-item class="inputLabel" lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password"
+      formControlName="password"
+      class="form-control"
+      #password
+      [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+      <span class="error ion-padding" *ngIf="submitted && f['password'].errors['required']">
+        Password must be at least 6 characters.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && f['password'].errors['minlength']">
+        Password is required.
+      </span>
+      <span class="error ion-padding" *ngIf="submitted && f['password'].errors['maxlength']">
+        Password must not exceed 40 characters.
+      </span>
+    </div>
+    
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" expand="block">Login</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+  <ion-row>
+    <ion-col>
+      <a expand="block" color="warning" [routerLink]="['/password-reset']"
+        >Forgot password?
+      </a>
+    </ion-col>
+  </ion-row>
+</ion-content>
